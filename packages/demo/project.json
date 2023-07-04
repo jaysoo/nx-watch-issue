@@ -1,0 +1,30 @@
+{
+  "name": "demo",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/demo/src",
+  "projectType": "library",
+  "targets": {
+    "gen-schema": {
+      "command": "touch packages/demo/src/schema.ts"
+    },
+    "build": {
+      "dependsOn": ["gen-schema"],
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/demo",
+        "main": "packages/demo/src/index.ts",
+        "tsConfig": "packages/demo/tsconfig.lib.json",
+        "assets": ["packages/demo/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/demo/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}
